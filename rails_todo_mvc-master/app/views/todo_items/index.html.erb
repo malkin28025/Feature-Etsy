@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Template • TodoMVC</title>
+		<!-- CSS overrides - remove if you don't need it -->
+		<!-- since I don't have a stylesheet at css/app.css, the below link is generating a big error message in my log every time I try to visit a page. I'm commenting it out for that reason. -->
+		<!--<link rel="stylesheet" href="css/app.css">-->
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<%= form_for @todo_item do |f| %>
+				  <%= f.text_field :description, placeholder: "What needs to be done?", id: 'new-todo', autofocus: true %>
+				  <%= f.submit %>
+				<% end %>
+			</header>
+				<!-- This section should be hidden by default and shown when there are todos -->
+			<% if @all_todo_items.any? %>
+				<section id="main">
+					<input id="toggle-all" type="checkbox">
+					<label for="toggle-all">Mark all as complete</label>
+					<ul id="todo-list">
+						<!-- These are here just to show the structure of the list items -->
+						<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+						<% @all_todo_items.each do |item| %>
+							<li <%= 'class=completed' if item.complete? %>>
+								<div class="view">
+									<%= form_for item do |f| %>
+	 								  <%= f.check_box :complete, class: 'toggle' %>
+	 								  <%= f.submit %>
+	 								<% end %>
+									<label><%= link_to item.description, edit_todo_item_path(item) %></label>
+									<%= button_to 'X', item, method: :delete, class: 'destroy' %>
+									<!--<button class="destroy"></button>-->
+								</div>
+								<!-- the below input is supposed to show up due to js wizardry when the label gets double-clicked. We have no js wizardry. Also, the value should be the same as the text in the label. "Rule the web" makes no sense unless that's also what the label says. I'm commenting this out since we're editing the text on a separate page.-->
+								<!--<input class="edit" value="Rule the web">-->
+							</li>
+						<% end %>
+					</ul>
+				</section>
+				<!-- This footer should hidden by default and shown when there are todos -->
+				<footer id="footer">
+					<!-- This should be `0 items left` by default -->
+					<span id="todo-count"><strong><%= pluralize @all_todo_items.where(complete: false).count, 'item' %></strong> left</span>
+					<!-- Remove this if you don't implement routing -->
+					<ul id="filters">
+						<li>
+							<%= link_to 'All', root_path, class: ('selected' if params[:complete].nil?) %>
+						</li>
+						<li>
+							<%= link_to 'Active', root_path(complete: false), class: ('selected' if params[:complete] == 'false') %>
+						</li>
+						<li>
+							<%= link_to 'Completed', root_path(complete: true), class: ('selected' if params[:complete] == 'true') %>
+						</li>
+					</ul>
+					<!-- Hidden if no completed items are left ↓ -->
+					<% unless @all_todo_items.where(complete: true).count == 0 %> 
+					  <%= button_to 'Clear completed', clear_completed_todo_items_path, id: 'clear-completed', method: :patch %>
+					  <!--<button id="clear-completed"></button>-->
+					<% end %>
+				</footer>
+			<% end %>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<!-- Remove the below line ↓ -->
+			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+			<!-- Change this out with your name and url ↓ -->
+			<p>Created by <a href="http://todomvc.com">you</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+<h1>Edit</h1>
+<%= form_for @todo_item do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <%= f.submit %>
+<% end %>
+<%= link_to 'Back', root_path %>
+<!-- Note that this page got the nice TodoMVC styling, even though there's no css on this page. It can't be because of the layout, because all the styling is still in the index. I actually expected this page to turn out ugly, to motivate taking all the layout-type stuff that's in index and moving it into the layout where it belongs. But what Rails does these days is, every time a request sends back an HTML response, it "scoops out" everything in the <body> tag and replaces it with what's in the HTML response. That's what happened here - if you look at the DOM with the developer tools in Chrome, you'll see the <head> tag from the index when you're on this page.-->
