@@ -1,0 +1,7 @@
+// show the review without the page having to refresh
+// grab some element with a selector, and do something with it
+//<%# my_partial = render partial: 'review', object: @review %>
+//<%# escaped_partial = escape_javascript(my_partial) %>
+//$("#reviews").append("<%#= escaped_partial %>")
+$("#reviews > p").after("<%= escape_javascript(render partial: 'review', object: @review) %>")
+// hide the form

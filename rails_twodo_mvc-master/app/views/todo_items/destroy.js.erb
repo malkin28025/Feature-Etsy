@@ -1,0 +1,4 @@
+// remove the deleted item without refreshing
+$("#<%= dom_id(@todo_item) %>").remove();
+var count = $('#todo-list li').not('.completed').length;// also, update the counter
+  $("#todo-count strong").html(count + ' items');

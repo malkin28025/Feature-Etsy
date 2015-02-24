@@ -1,0 +1,12 @@
+<h1>Task Lists</h1>
+
+<ul>
+  <% @task_lists.each do |task_list| %>
+    <li><%= link_to task_list.name, task_list_todo_items_path(task_list) %></li>
+  <% end %>
+</ul>
+
+<%= form_for @task_list do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>

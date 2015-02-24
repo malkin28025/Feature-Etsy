@@ -1,0 +1,16 @@
+<h1>Church Street District Restaurants</h1>
+
+<p>Here are places I've eaten downtown, and enjoyed and/or gotten food poisoning from.</p>
+
+<table>
+  <tr><th>Name</th><th>Address</th><th>Number of reviews</th></tr>
+  <% @restaurants.each do |restaurant| %>
+    <tr>
+      <td><%= link_to restaurant.name, restaurant %></td>
+      <td><%= restaurant.address %></td>
+      <td><%= restaurant.reviews.length %></td>
+    </tr>
+  <% end %>
+</table> 
+
+<%= link_to 'Add a new restaurant', new_restaurant_path %>

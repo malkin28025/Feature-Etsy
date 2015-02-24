@@ -1,0 +1,14 @@
+<li <%= 'class=completed' if todo_item.complete? %> id="<%= dom_id(todo_item) %>">
+  <div class="view">
+    <%= form_for [@task_list, todo_item], remote: true, authenticity_token: true do |f| %>
+      <%= f.check_box :complete, class: 'toggle' %>
+    <% end %>
+    <label <%= due_class_for(todo_item) %>><%= todo_item.name %> (<%= todo_item.date.strftime("%b %e, %Y") %>)</label>
+    <%= form_for [@task_list, todo_item], method: :delete, class: 'destroy', remote: true, authenticity_token: true do %>
+      <button class="destroy"></button>
+    <% end %>
+  </div>
+  <%= form_for [@task_list, todo_item], remote: true, authenticity_token: true  do |f| %>
+    <%= f.text_field :name, class: 'edit' %>
+  <% end %>
+</li>

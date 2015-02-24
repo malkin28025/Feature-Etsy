@@ -1,0 +1,17 @@
+<h1><%= @restaurant.name %></h1>
+<section id="reviews">
+  <p>Here are all the reviews:</p>
+  <% @restaurant.reviews.order(created_at: :desc).each do |review| %>
+    <%= render partial: 'reviews/review', object: review %>
+  <% end %>
+  <!-- new review goes here -->
+</section>
+<section>
+  <% if session[:user_id] %>
+    <%= link_to 'Click here to review this place', '#', id: 'new_review_link' %>
+    <%= render 'form' %>
+  <% else %>
+    <p>If you'd like to review this place, <%= link_to 'log in here', login_path %></p>
+  <% end %>
+</section>
+<%= link_to 'Back home', restaurants_path %>

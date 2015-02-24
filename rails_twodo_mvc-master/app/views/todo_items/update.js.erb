@@ -1,0 +1,7 @@
+// set label inside the li tag of the todo item that got changed
+// remove the .editing on the li tag of the todo item that got changed
+$("#<%= dom_id(@todo_item) %> label").html("<%= @todo_item.name %>");
+$("#<%= dom_id(@todo_item) %>").removeClass('editing');
+var count = $('#todo-list li').not('.completed').length;// also, update the counter
+$("#todo-count strong").html(count + ' items');
+

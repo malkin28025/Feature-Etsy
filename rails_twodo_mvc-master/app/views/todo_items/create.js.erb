@@ -1,0 +1,5 @@
+// insert some HTML into the list
+$("#todo-list").prepend("<%= j(render partial: 'todo_item', object: @todo_item) %>");
+$("#new-todo").val('');
+var count = $('#todo-list li').not('.completed').length;// also, update the counter
+$("#todo-count strong").html(count + ' items');

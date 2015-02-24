@@ -1,0 +1,10 @@
+<article>
+  <p <%= 'class=recommended' if review.recommend? %>>
+    Rating: <%= review.rating %></p>
+  <% if review.recommend? %>
+    <p>RECOMMENDED!</p>
+  <% end %> 
+  <p>Comment: <%= review.comment %></p>
+  <p>Posted by: <%= review.user.name %> at <%= time_ago_in_words review.created_at %> ago <% if session[:user_id] == review.user_id %>
+    <%= link_to 'Edit', edit_restaurant_review_path(@restaurant, review) %> <%= button_to 'Delete', restaurant_review_path(@restaurant, review), method: :delete %><% end %></p>
+</article>
